@@ -15,6 +15,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import static org.hamcrest.core.StringContains.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -45,4 +46,13 @@ public class SampleControllerTest {
         log.info(result);
     }
 
+    @Test
+    public void sampleDtoTest() throws Exception {
+        mockMvc.perform(post("/sample")
+                    .param("title","제목")
+                    .param("dateTime","2019-01-01"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(view().name("sample"));
+    }
 }
